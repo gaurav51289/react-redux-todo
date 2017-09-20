@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
+import {doneTodo} from "../actions/index";
 
 class TodoItem extends Component {
-
-    handleDone = (changedTodo) => {
-        this.props.handleDone(changedTodo)
-    };
 
     render() {
 
@@ -22,9 +20,9 @@ class TodoItem extends Component {
                             <button
                                 className="close"
                                 onClick={() => {
-                                    this.handleDone(item.todo);
+                                    this.props.doneTodo(item.todo);
                                 }}
-                            ><span aria-hidden="true">&times;</span></button>) : ''}
+                            ><span aria-hidden={true}>&times;</span></button>) : ''}
                     </div>
                 </div>
             </div>
@@ -32,4 +30,10 @@ class TodoItem extends Component {
     }
 }
 
-export default TodoItem;
+function mapDispatchToProps(dispatch) {
+    return {
+        doneTodo : (data) => dispatch(doneTodo(data))
+    };
+}
+
+export default connect(null, mapDispatchToProps)(TodoItem);    // Learn 'Currying' in functional programming

@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
+import {addTodo} from "../actions/index";
+
 import TodoItem from "./TodoItem";
 
 
 class MyToDo extends Component {
 
-    handleAddTodo = (newItem) => {
-        this.props.handleAddTodo(newItem)
-    };
-
     render() {
-
-        const {todos} = this.props;
-
+        console.log(this.props);
         return (
             <div className="container-fluid">
                 <div className="row justify-content-md-center">
@@ -34,7 +32,7 @@ class MyToDo extends Component {
                         <button
                             className="btn btn-primary btn-sm"
                             onClick={() => {
-                                this.handleAddTodo(this.input.value)
+                                this.props.addTodo(this.input.value)
                             }}
                         >Add</button>
                     </div>
@@ -45,12 +43,11 @@ class MyToDo extends Component {
                     <div className="card col-md-6">
                         <div className="card-body">
                             {
-                                todos.map((todo,index) => {
+                                this.props.todos.map((todo,index) => {
                                     return(
                                         <TodoItem
                                             key={index}
                                             item={todo}
-                                            handleDone = {this.props.handleDone}
                                         />
                                     );
                                 })
@@ -63,4 +60,15 @@ class MyToDo extends Component {
     }
 }
 
-export default MyToDo;
+
+function mapStateToProps(todos) {
+    return todos;
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addTodo : (data) => dispatch(addTodo(data))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyToDo);    // Learn 'Currying' in functional programming
