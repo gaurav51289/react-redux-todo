@@ -1,6 +1,6 @@
 import {ADD_TODO, DONE_TODO} from "../actions/index";
 
-
+// https://github.com/reactjs/react-redux/blob/d5bf492ee35ad1be8ffd5fa6be689cd74df3b41e/src/components/createConnect.js#L91
 const initialState = {
         "Do laundry" : 'active',
         "Empty trash" : 'active'
