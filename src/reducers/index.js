@@ -2,11 +2,8 @@ import {ADD_TODO, DONE_TODO} from "../actions/index";
 
 
 const initialState = {
-    todos: [
-        {todo: "Do laundry.", status: 'active'},
-        {todo: "Grocery.", status: 'active'},
-        {todo: "Empty trash.", status: 'done'}
-    ]
+        "Do laundry" : 'active',
+        "Empty trash" : 'active'
 };
 
 const todos = (state = initialState, action) => {
@@ -14,21 +11,15 @@ const todos = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_TODO :
-            state.todos.push({
-                todo: action.newItem,
-                status: 'active'
-            });
-            return state;
+           return {
+               ...state,
+               [action.newItem] : 'active'
+           };
 
         case DONE_TODO :
-
             return {
-                todos: state.todos.map((item) => {
-                            if (item.todo === action.changedTodo) {
-                                item.status = 'done';
-                            }
-                            return item;
-                        })
+                ...state,
+                [action.changedTodo] : 'done'
             };
 
         default :

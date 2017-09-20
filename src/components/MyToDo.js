@@ -43,7 +43,7 @@ class MyToDo extends Component {
                     <div className="card col-md-6">
                         <div className="card-body">
                             {
-                                this.props.todos.map((todo,index) => {
+                                this.props.todoArr.map((todo,index) => {
                                     return(
                                         <TodoItem
                                             key={index}
@@ -62,7 +62,13 @@ class MyToDo extends Component {
 
 
 function mapStateToProps(todos) {
-    return todos;
+    const todoArr = Object.keys(todos).map((item) => (
+        {
+            'todo' : item,
+            'status' : todos[item]
+        }
+    ));
+    return {todoArr};
 }
 
 function mapDispatchToProps(dispatch) {
